@@ -5,28 +5,31 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function LanguageChart({ repos }) {
     const languageCounts = {};
+    let totalValidRepos = 0;
 
     repos.forEach(repo => {
         if (repo.language) {
             languageCounts[repo.language] = (languageCounts[repo.language] || 0) + 1;
+            totalValidRepos++;
         }
     });
 
     const labels = Object.keys(languageCounts);
-    const dataValues = Object.values(languageCounts);
+    // Counts ko automatic percentages (%) mein badalna
+    const percentages = Object.values(languageCounts).map(count =>
+        ((count / totalValidRepos) * 100).toFixed(1)
+    );
 
     if (labels.length === 0) {
         return <p style={{ color: 'var(--text-muted)', textAlign: 'center' }}>No language data found.</p>;
     }
 
     const data = {
-        labels: labels,
+        labels: labels.map((label, idx) => `${label} (${percentages[idx]}%)`),
         datasets: [
             {
-                data: dataValues,
-                backgroundColor: [
-                    '#ff6384', '#36a2eb', '#ffce56', '#4bc0c0', '#9966ff', '#ff9f40'
-                ],
+                data: Object.values(languageCounts),
+                backgroundColor: ['#ff6384', '#36a2eb', '#ffce56', '#4bc0c0', '#9966ff', '#ff9f40'],
                 borderWidth: 1,
                 borderColor: '#30363d',
             },
@@ -35,9 +38,11 @@ export default function LanguageChart({ repos }) {
 
     const options = {
         plugins: {
-            legend: {
-                position: 'right',
-                labels: { color: '#c9d1d9' }
+            legend: { position: 'right', labels: { color: '#c9d1d9' } },
+            tooltip: {
+                callbacks: {
+                    label: (context) => ` Repos: ${context.raw} (${percentages[context.dataIndex]}%)`
+                }
             }
         },
         maintainAspectRatio: false

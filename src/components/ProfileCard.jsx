@@ -12,11 +12,19 @@ export default function ProfileCard({ user, repos }) {
     return (
         <div className="card" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', alignItems: 'center' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-                <img src={user.avatar_url} className="avatar" alt={user.name} />
+                {/* Real Profile Image Render validation */}
+                <img
+                    src={user.avatar_url || `https://dicebear.com{user.login}`}
+                    className="avatar"
+                    alt={user.login}
+                    onError={(e) => { e.target.src = `https://dicebear.com{user.login}` }}
+                />
                 <div>
                     <h2 style={{ margin: 0 }}>{user.name || user.login}</h2>
                     <p style={{ color: 'var(--text-muted)', margin: '5px 0' }}>@{user.login}</p>
-                    <p style={{ margin: '5px 0 0 0', fontSize: '0.9rem' }}>{user.bio || 'No bio provided.'}</p>
+                    <p style={{ margin: '5px 0 0 0', fontSize: '0.9rem' }}>
+                        {user.bio ? user.bio : "🌱 This profile hasn't set a GitHub bio yet."}
+                    </p>
                 </div>
             </div>
 
@@ -24,7 +32,7 @@ export default function ProfileCard({ user, repos }) {
                 <h3 style={{ margin: '0 0 5px 0', color: 'var(--accent-color)' }}>{getRank(devScore)}</h3>
                 <p style={{ margin: 0, fontSize: '1.8rem', fontWeight: 'bold' }}>{devScore} <span style={{ fontSize: '1rem', color: 'var(--text-muted)' }}>pts</span></p>
                 <p style={{ margin: '5px 0 0 0', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-                    Based on repos, followers, and repo stars
+                    Real-time computational ecosystem score
                 </p>
             </div>
         </div>
