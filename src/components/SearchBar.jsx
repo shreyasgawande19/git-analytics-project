@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-
+import { useState } from 'react';
 export default function SearchBar({ onSearch }) {
+
     const [input, setInput] = useState('');
 
     const handleSubmit = (e) => {

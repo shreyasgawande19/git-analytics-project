@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import SearchBar from './components/SearchBar';
 import ProfileCard from './components/ProfileCard';
 import Dashboard from './components/Dashboard';
@@ -14,9 +14,12 @@ export default function App() {
     setLoading(true);
     setUserData(null);
 
+    console.log("Analyzing profile for:", username);
+
+
     try {
       const [userRes, reposRes, eventsRes] = await Promise.all([
-        fetch(`https://github.com{username}`),
+        fetch(`https://github.com/${username}`),
         fetch(`https://github.com{username}/repos?sort=updated&per_page=30`),
         fetch(`https://github.com{username}/events/public?per_page=10`)
       ]);

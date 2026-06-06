@@ -1,5 +1,3 @@
-import React from 'react';
-
 export default function ProfileCard({ user, repos }) {
     const totalStars = repos.reduce((sum, repo) => sum + repo.stargazers_count, 0);
     const devScore = (user.public_repos * 10) + (user.followers * 5) + (totalStars * 15);
