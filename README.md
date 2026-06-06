@@ -5,6 +5,8 @@ GitPulse is a modern, metrics-driven React application engineered specifically f
 ## 🚀 Live Demo
 Explore the production deployment link here:  
 👉 **[Live Vercel Deployment Link](http://git-analytics-project.vercel.app)**
+## Screenshot:
+<img width="1354" height="604" alt="Screenshot 2026-06-07 021919" src="https://github.com/user-attachments/assets/953d7c55-8cc9-4532-a2c0-2682ce0655ac" />
 
 ---
 
