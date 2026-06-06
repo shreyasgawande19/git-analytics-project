@@ -1,3 +1,4 @@
-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
-
+node_modules
+dist
 .env
+.env.local
